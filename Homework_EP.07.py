@@ -5,22 +5,9 @@ import random
 import csv
 global data 
 
-def exportcsv():
-    data = ["แปลง : " + s1.h_id,"แบบบ้าน : " + s1.h_type,"สไตล์ : " + s1.h_style,"พื้นที่ : " + str(s1.actual_area),"ราคา : " + str(s1.actual_price),"พนักงานขาย :" + s1.name , "ชื่อลูกค้า : " + s1.b_name , "อายุลูกค้า : " + str(s1.b_age)   ,"เบอร์โทรอลูกค้า : " + s1.b_phone , "ที่อยู่ลูกค้า : " + s1.b_address]
-    with open('CSV_Write.csv', 'a', encoding='utf-8',newline='') as csvfile:
-        csv_writer = csv.writer(csvfile)
-        csv_writer.writerow(data)
-
-        messagebox.showinfo("Test",data)
-        #messagebox.showinfo("Write CSV" , "A L L    D O N E")
-
-
-global data
 Home_ID = []
 Fnt = ('Cordia New',20,'bold')
-
 class Home():
-    
     def __init__(self,proj_name,proj_owner,std_area,std_price,actual_price):
         self.proj_name = proj_name
         self.proj_owner = proj_owner
@@ -111,22 +98,22 @@ class Sell(Home):
         
         L_hid = Label(GUI,text="ขายบ้านแปลง : ",font=Fnt).place(x=20,y=300)
         E_hid_input = StringVar(value= self.h_id)
-        E_bhid = Entry(GUI,textvariable = E_hid_input ,width=5, font=Fnt , bg='lightgrey',justify=CENTER).place(x=150,y=300)
+        E_bhid = Entry(GUI,textvariable = E_hid_input ,width=5, font=Fnt , bg='lightgrey',justify=CENTER,state=DISABLED).place(x=150,y=300)
         L_htype = Label(GUI,text="ประเภท : ",font=Fnt).place(x=220,y=300)
         E_htype_input = StringVar(value= self.h_type)
-        E_htype = Entry(GUI,textvariable = E_htype_input ,width=15, font=Fnt , bg='lightgrey',justify=CENTER).place(x=320,y=300)
+        E_htype = Entry(GUI,textvariable = E_htype_input ,width=15, font=Fnt , bg='lightgrey',justify=CENTER,state=DISABLED).place(x=320,y=300)
         L_hstyle = Label(GUI,text="สไตล์ : ",font=Fnt).place(x=480,y=300)
         E_hstyle_input = StringVar(value= self.h_style)
-        E_hstyle = Entry(GUI,textvariable = E_hstyle_input ,width=15, font=Fnt , bg='lightgrey',justify=CENTER).place(x=550,y=300)
+        E_hstyle = Entry(GUI,textvariable = E_hstyle_input ,width=15, font=Fnt , bg='lightgrey',justify=CENTER,state=DISABLED).place(x=550,y=300)
         
         # Actual Area , Actual Price
         L_act_area = Label(GUI,text="พื้นที่จริง",font=Fnt).place(x=20,y=350)
         E_act_area_input = StringVar(value =  f' {self.actual_area:,.2f}')
-        E_act_area = Entry(GUI,textvariable=E_act_area_input,font=Fnt,width=7,bg='lightgrey').place(x=150,y=350)
+        E_act_area = Entry(GUI,textvariable=E_act_area_input,font=Fnt,width=7,bg='lightgrey',justify=CENTER,state=DISABLED).place(x=150,y=350)
         L_actual_unit =  Label(GUI,text="ตร.วา   ราคาสุทธิ  ",font=Fnt).place(x=230,y=350)
         
         E_actual_price_input = StringVar(value =  f' {self.actual_price:,.2f} ')
-        E_actual_price = Entry(GUI,textvariable=E_actual_price_input,font=Fnt,width=15,bg='lightgrey').place(x=380,y=350)
+        E_actual_price = Entry(GUI,textvariable=E_actual_price_input,font=Fnt,width=15,bg='lightgrey',justify=CENTER,state=DISABLED).place(x=380,y=350)
         L_actual_unit =  Label(GUI,text="บาท",font=Fnt).place(x=530,y=350)
 
         def exit_win():
@@ -134,11 +121,12 @@ class Sell(Home):
 
         def disp():
             
-            data1 = ["แปลง : " + E_hid_input.get(),"แบบบ้าน : " + E_htype_input.get(),"สไตล์ : " + E_hstyle_input.get()
-             ,"พื้นที่ : " + str(E_act_area_input.get()),"ราคา : " + str(E_actual_price_input)
-             ,"พนักงานขาย :" + E_sale_input.get() , "เพศ : " + E_sgender_input.get() ,"อายุ : " + str(E_sage_input.get()) + " ปี"
-             , "ชื่อลูกค้า : " + E_buyer_input.get() , "อายุลูกค้า : " + str(E_bage_input.get())
-             ,"เบอร์โทรอลูกค้า : " + E_bphone_input.get() , "ที่อยู่ลูกค้า : " + E_b_address_input.get()
+            data1 = ["โครงการ : "  + self.proj_name , "บริหารโดย : " + self.proj_owner
+                     , "แปลง : " + E_hid_input.get(),"แบบบ้าน : " + E_htype_input.get(),"สไตล์ : " + E_hstyle_input.get()
+                     ,"พื้นที่ : " + str(E_act_area_input.get()) +" ตร.วา" ,f' ราคา   {s1.actual_price:,.2f}   บาท' 
+                     ,"พนักงานขาย :" + E_sale_input.get() , "เพศ : " + E_sgender_input.get() ,"อายุ : " + str(E_sage_input.get()) + " ปี"
+                     , "ชื่อลูกค้า : " + E_buyer_input.get() , "อายุลูกค้า : " + str(E_bage_input.get())
+                     ,"เบอร์โทรอลูกค้า : " + E_bphone_input.get() , "ที่อยู่ลูกค้า : " + E_b_address_input.get()
          ]
             with open('CSV_Write.csv', 'a', encoding='utf-8',newline='') as csvfile:
                 csv_writer = csv.writer(csvfile)
@@ -147,9 +135,8 @@ class Sell(Home):
                 messagebox.showinfo("Write CSV" , data1)
 
 
-        B_1 = Button(GUI,text="Close",font=Fnt,bg='orange',width=12,height=2,command=exit_win).place(x=350,y=400)
-        B_2 = Button(GUI,text="บันทึก CSV\n CLASS",font=Fnt,bg='violet',width=12,command=exportcsv).place(x=500,y=400)
-        B_3 = Button(GUI,text="บันทึก CSV\n GUI",command=disp,font=Fnt,bg='skyblue',width=12).place(x=650,y=400)
+        B_1 = Button(GUI,text="Close",font=Fnt,bg='orange',width=12,command=exit_win).place(x=500,y=400)
+        B_2 = Button(GUI,text="บันทึก CSV",command=disp,font=Fnt,bg='skyblue',width=12).place(x=650,y=400)
 
         GUI.mainloop()
 
@@ -164,10 +151,10 @@ for i  in range(10):
 
 s1 = Sell("Lung Wisawa","ลุง-ป้า-น้า-อา",70,1.8E+6,0)
 s1.h_id = random.choice(Home_ID)
-s1.h_details("บ้านเดี่ยว","โมเดิร์น",95.59,s1.h_id)
+s1.h_details("บ้านแฝด","คลาสสิค",73.59,s1.h_id)
 s1.chk_price()
-s1.s_details("น.ส.รัชนี   มีทรัพย์มาก","หญิง",25)
-s1.buyer("นายวัฒนา   ใฝ่หาความรู้",35,"045-585-0852","32/1 หมู่ 4 ต.พลา อ.บ้านฉาง จ.ระยอง  21130")
+s1.s_details("น.ส.รัชนี มีทรัพย์มาก","หญิง",25)
+s1.buyer("นายวัฒนา ใฝ่หาความรู้",35,"045-585-0852","32/1 หมู่ 4 ต.พลา อ.บ้านฉาง จ.ระยอง  21130")
 
 #s1.show_data()
 
@@ -184,7 +171,7 @@ s2.buyer("นายประเสริฐ  เลิศทุกสิ่ง",
 #__Create Object s13🍉🍉🍉🍉🍉🍉🍉🍉🍉
 s3 = Sell("Lung Wisawa","ลุง-ป้า-น้า-อา",70,1.8E+6,0)
 s3.h_id = random.choice(Home_ID)
-s3.h_details("บ้านเดี่ยว","โมเดิร์น",80.88,s3.h_id)
+s3.h_details("บ้านแฝด","คลาสสิค",80.88,s3.h_id)
 s3.chk_price()
 s3.s_details("น.ส.ณัฐกานต์   การงานชอบ","หญิง",26)
 s3.buyer("นางวารี ศรีเทพ",37,"055-454-5455","34/5 หมู่ 6 ต.ตะเคียนทอง อ.เขาคิชฌกูฏ จ.จันทบุรี  22210")
@@ -202,6 +189,8 @@ s4.buyer("นายสุรเดช   มีเมตตา",30,"045-025-5225"
 #🎏🎏🎏🎏🎏🎏🎏🎏
 
 # Run Object
-s1.reserve()
-s1.show_data()
+s4.reserve()
+s4.show_data()
+
+#⚓ ⚓ ⚓ ⚓  E n D ⚓ ⚓ ⚓ ⚓
 
